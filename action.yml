@@ -1,0 +1,24 @@
+name: "kolla-builder"
+description: "build set of kolla containers"
+inputs:
+  config_set:
+    description: "What platform to build for (e.g., x86_ubuntu,x86_centos,x86_centos7,aarch64_debian...) choose one."
+    required: true
+  kolla_build_profile:
+    description: "Kolla profile(s) to build (e.g., 'base', 'ironic'), comma-separated"
+    required: false
+  build_pattern:
+    description: "Kolla image build pattern (e.g., '^ironic-')"
+    required: false
+  push:
+    description: "Push images to registry? (yes/no)"
+    required: true
+    default: no
+outputs: {}
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v2
+    - run: ./run.sh python3 build.py
+      shell: bash
