@@ -58,6 +58,10 @@ jobs:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cache Docker images.
+        uses: ScribeMD/docker-cache@0.3.4
+        with:
+          key: docker-${{ runner.os }}-${{ hashFiles('blazar/**', 'neutron/**') }}
       - name: Run Kolla Build
         run: |
           ./run.sh python3 do_build.py
