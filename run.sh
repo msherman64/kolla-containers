@@ -51,9 +51,7 @@ if [[ "${CHECK_UPDATES}" == "yes" || "${FORCE_UPDATES}" == "yes" ]]; then
     sha256sum "${pip_requirements}" >"${pip_requirements_chksum}"
   fi
 
-  if [ -z ${KOLLA_LOCAL_CHECKOUT} ]; then
-    pip install -e ${KOLLA_LOCAL_CHECKOUT}
-  else
+  if [ -z ${KOLLA_LOCAL_CHECKOUT+x} ]; then
     kolla_remote=https://github.com/chameleoncloud/kolla.git
     kolla_checkout="${KOLLA_BRANCH}"
     kolla_gitref="${VIRTUALENV}"/kolla.gitref
@@ -67,6 +65,8 @@ if [[ "${CHECK_UPDATES}" == "yes" || "${FORCE_UPDATES}" == "yes" ]]; then
       popd || ( echo "popd error!" && exit 1 )
       (cd "${kolla_egglink}"; git rev-parse HEAD >"${kolla_gitref}")
     fi
+  else
+    pip install -e ${KOLLA_LOCAL_CHECKOUT}
   fi
 fi
 
