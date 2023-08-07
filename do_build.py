@@ -59,14 +59,14 @@ def main():
     print("  " + " \\\n  ".join(kolla_argv))
     print()
 
-    # Kolla reads its input straight from sys.argv
-    # sys.argv = [""] + kolla_argv
-    # bad, good, unmatched, skipped, unbuildable, fail_allowed  = kolla_build.run_build()
-    # if bad:
-    #     sys.exit(1)
+    Kolla reads its input straight from sys.argv
+    sys.argv = [""] + kolla_argv
+    bad, good, unmatched, skipped, unbuildable, fail_allowed  = kolla_build.run_build()
+    if bad:
+        sys.exit(1)
 
-    # for img in good:
-    #     print(f"built {img}")
+    for img in good:
+        print(f"built {img}")
 
 
 if __name__ == "__main__":
